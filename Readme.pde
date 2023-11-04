@@ -9,10 +9,10 @@
    
    Key Handler:
    
-   'a' = UP, 's' = DOWN, 'd' = LEFT, 'w' = RIGHT to move the hero around the screen.
+   'a' = LEFT, 'd' = RIGHT, 'w' = UP, 's' = DOWN, to move the hero around the screen.
    
    Other Inputs:
-   Move and click mouse to aim & shoot.
+   Move and click mouse to aim left/right & shoot.
    
    Known bugs:
    On start-up, when asked for the player's name, if the user presses cancel the program freezes.
