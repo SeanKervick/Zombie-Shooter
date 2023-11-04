@@ -2,8 +2,8 @@ public class Zombie {
   private float xCoord; //  x coordinate of zombie
   private float yCoord; // y coordinate of zombie
   private float diameter; // diameter of zombie
-  private float speedX; // speed along x axis
-  private float speedY; // speed along y axis
+  private float speed = 2; // speed of zombie
+  private int x; // for reseting from different side
 
 
   //getter methods
@@ -36,12 +36,29 @@ public class Zombie {
   }
 
 
-  //reset Zombie method
-  private void resetZombie() {
+  //reset Zombie from the left side
+  private void resetZombieLeft() {
     xCoord = 0;
     yCoord = random(height);
-    speedX = random(2, 4);
-    speedY = random(-2, 2);
+    x ++; //increment x each reset to alternate from even to odd
+    println("int reset = " + x % 2);
+  }
+  
+  //reset Zombie from the right side
+  private void resetZombieRight() {
+    xCoord = width;
+    yCoord = random(height);
+    x ++; //increment x each reset to alternate from even to odd
+    println("int reset = " + x % 2);
+  }
+  
+  private void resetZombie(){
+    if (x % 2 == 0){ 
+      resetZombieLeft();// if 'x' is even, reset from left
+    }
+    else if (x % 2 == 1){
+      resetZombieRight();// if 'x' is odd, reset from right
+    }
   }
 
   //Constructor method
@@ -49,39 +66,81 @@ public class Zombie {
     setDiameter(diameter);
     resetZombie();
   }
+  
+  public void hit(){  // hit() method for action when there is a collision
+    background(255, 0, 0);
+    resetZombie();
+  }
 
   //update method
-  public boolean update() {
-    boolean lifeLost = false;
-
-    //update zombie coordinates
-    xCoord = xCoord + speedX;
-    yCoord = yCoord + speedY;
-
-    //reset position if zombie leaves the screen
-    if (xCoord > width + diameter/2) {
-      resetZombie();
-      lifeLost = true;
+  public void update() {
+    float distanceX = xCoord - hero.getXCoordHero();  //distanceX is distance between hero and zombie on x axis
+    float distanceY = yCoord - hero.getYCoordHero();  //distanceY is distance between hero and zombie on y axis
+    
+    //update zombie coordinates   
+    if (distanceX > 0){
+      xCoord -= 2;
     }
-    /*
-  // If ball hits the left edge of the display 
-     // window, change direction of xCoord
-     if (xCoord < diameter/2){
-     xCoord = diameter/2;
-     speedX = speedX * -1;
-     }
-     
-     // If ball hits top or bottom of the display
-     //  window, change direction of yCoord
-     if (yCoord > height - diameter/2){
-     yCoord = height - diameter/2;
-     speedY = speedY * -1;
-     } 
-     else if (yCoord < diameter/2){
-     yCoord = diameter/2;
-     speedY = speedY * -1;
-     }
-     */
-    return lifeLost;
+    else {
+      xCoord += 2;
+    }
+    if (distanceY > 0){
+      yCoord -= 2;
+    }
+    else {
+      yCoord += 2;
+    }
+
+    println("DistanceX = " + distanceX);
+    println("DistanceY = " + distanceY);
   }
 }
+
+      
+      
+
+
+
+
+/*
+    //TO DELTE WHEN FINISHED
+    //reset position if zombie leaves the screen right
+    if (xCoord > width + diameter) {
+    if (x % 2 == 0){ // if 'int reset' is even, reset from left
+    resetZombieLeft();
+    }
+    else if (x % 2 == 1){
+      resetZombieRight();// if 'int reset' is odd, reset from right
+    }
+    }
+    
+    //reset position if zombie leaves the screen left
+    if (xCoord < 0) {
+    if (x % 2 == 0){ // if 'int reset' is even, reset from left
+    resetZombieLeft();
+    }
+    else if (x % 2 == 1){
+      resetZombieRight();// if 'int reset' is odd, reset from right
+    }
+    }
+    
+    //reset position if zombie leaves the screen top
+    if (yCoord < 0 + diameter) {
+    if (x % 2 == 0){ // if 'int reset' is even, reset from left
+    resetZombieLeft();
+    }
+    else if (x % 2 == 1){
+      resetZombieRight();// if 'int reset' is odd, reset from right
+    }
+    }
+    //reset position if zombie leaves the screen bottom
+    if (yCoord > height + diameter) {
+    if (x % 2 == 0){ // if 'int reset' is even, reset from left
+    resetZombieLeft();
+    }
+    else if (x % 2 == 1){
+      resetZombieRight();// if 'int reset' is odd, reset from right
+    }
+    }
+  }
+*/

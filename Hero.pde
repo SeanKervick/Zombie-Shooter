@@ -1,68 +1,61 @@
 public class Hero {
-  private int xCoord; // X coordinate of person
-  private int yCoord;  // Y coordinate of person
-  private int diameter; // diameter of person
+  private float xCoordHero; // X coordinate of hero
+  private float yCoordHero;  // Y coordinate of hero
+  private int diameter; // diameter of hero
 
-  public int getXCoord() {
-    return xCoord;
+  //getters
+  public float getXCoordHero() {
+    return xCoordHero;
   }
 
-  public int getYCoord() {
-    return yCoord;
+  public float getYCoordHero() {
+    return yCoordHero;
   }
 
-  public int getDiameter() {
+  public float getDiameter() {
     return diameter;
   }
 
-  // setter methods
-  public void setDiameter(int diameter) {
-    if ((diameter >= 40) && (diameter <= 60)) {
-      this.diameter = diameter;
-    } else {
-      this.diameter = 50;  // sets the diameter to 50 if an unsuitable value is chosen
-    }
+  //setters
+  public void setDiameter() {
+    this.diameter = 50;  // sets diameter of hero to 50
   }
 
-  public void setXCoord() {  // sets hero in the middle of screen at beginning of game
-    this.xCoord = width/2;
+  public void setXCoordHero() {  // sets hero in the middle of screen at beginning of game
+    this.xCoordHero = width/2;
   }
 
-  public void setYCoord() {  // sets hero in the middle of screen at beginning of game
-    this.yCoord = height/2;
+  public void setYCoordHero() {  // sets hero in the middle of screen at beginning of game
+    this.yCoordHero = height/2;
   }
-
 
   //constructor method
-  public Hero(int diameter) {
-    setXCoord();
-    setYCoord();
-    setDiameter(diameter);
+  public Hero() {
+    setXCoordHero();
+    setYCoordHero();
+    setDiameter();
   }
 
   public void display() {
     fill(102);
     noStroke();
-    circle(xCoord, yCoord, diameter);
+    circle(xCoordHero, yCoordHero, diameter);
+    println("xCoordHero = " + xCoordHero + " yCoordHero = " + yCoordHero);
   }
 
   public void move() {
     if (key == CODED){
       if (keyCode == LEFT){
-        xCoord -= 10;
+        xCoordHero -= 10;
       }
       if (keyCode == RIGHT){
-        xCoord += 10;
+        xCoordHero += 10;
       }
       if (keyCode == UP){
-        yCoord -= 10;
+        yCoordHero -= 10;
       }
       if (keyCode == DOWN){
-        yCoord += 10;
-      }
-      else {
-        xCoord += 0;
-        yCoord += 0;
+        yCoordHero += 10;
       }
     }
   }
