@@ -9,13 +9,10 @@
    
    Key Handler:
    
-   Cursor Keys:
-   UP, DOWN, LEFT, RIGHT to move the hero around the screen.
+   'a' = UP, 's' = DOWN, 'd' = LEFT, 'w' = RIGHT to move the hero around the screen.
    
-   Other Key:
-   SPACEBAR ' ' to shoot.
-   'a' or 'A' to aim the bullet left.
-   'd' or 'D' to aim the bullet right.
+   Other Inputs:
+   Move and click mouse to aim & shoot.
    
    Known bugs:
    On start-up, when asked for the player's name, if the user presses cancel the program freezes.
