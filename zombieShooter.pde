@@ -4,8 +4,10 @@ import javax.swing.*;
 Zombie zombie;
 Hero hero;
 Player player;
+Bullet bullet;
 
 //Global Variables
+boolean pressed = false;
 
 //Game Info
 int livesLost = 0;         //keeps track of number of lives lost in current game
@@ -19,6 +21,7 @@ void setup() {
   zombie = new Zombie(20.0);   //setting up the size of the zombies
   hero = new Hero();  //setting up the size of the hero
   player = new Player(JOptionPane.showInputDialog("Enter the player name (max 6 chars: "));
+  bullet = new Bullet(hero.getXCoord(), hero.getYCoord());
 }
 
 
@@ -27,10 +30,14 @@ void draw() {
 
   if (livesLost < maxLives) {
     zombie.update();
-
     zombie.display();   
-
     hero.display();
+    hero.move();  // move hero once when key is pressed
+    
+    if (pressed == true){
+    bullet.render();
+    bullet.move();
+    }
 
     boolean collision = hitHero(hero, zombie);
     if (collision == true) {
@@ -55,16 +62,23 @@ void draw() {
 }
 
 
-void keyPressed() {
-  hero.move();  // move hero once when key is pressed
+void mousePressed() {
+  if (mouseButton == LEFT){
+    pressed = true;
+    bullet.setX();
+    bullet.setY();
+  }
+  else{
+    pressed = false;
+  }
 }
 
 
 
 //Hero and Zombie collision detection
 boolean hitHero(Hero hero, Zombie zombie) {
-  float heroZombieDistanceX = abs(zombie.getXCoord() - hero.getXCoordHero());
-  float heroZombieDistanceY = abs(zombie.getYCoord() - hero.getYCoordHero() - hero.getDiameter()/2);
+  float heroZombieDistanceX = abs(zombie.getXCoord() - hero.getXCoord());
+  float heroZombieDistanceY = abs(zombie.getYCoord() - hero.getYCoord() - hero.getDiameter()/2);
 
   if (heroZombieDistanceX > (zombie.getDiameter()/2)) {
     return false;

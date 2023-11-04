@@ -2,54 +2,57 @@ public class Zombie {
   private float xCoord; //  x coordinate of zombie
   private float yCoord; // y coordinate of zombie
   private float diameter; // diameter of zombie
-  private float speed = 2; // speed of zombie
   private int x; // for reseting from different side
 
 
   //getter methods
-  public float getXCoord() {
+  public float getXCoord(){
     return xCoord;
   }
 
-  public float getYCoord() {
+  public float getYCoord(){
     return yCoord;
   }
 
-  public float getDiameter() {
+  public float getDiameter(){
     return diameter;
   }
 
-  // setter method
-  public void setDiameter(float diameter) {
-    if ((diameter >= 20) && (diameter <= 40)) {
+  // setter 
+  public void setDiameter(float diameter){
+    if ((diameter >= 20) && (diameter <= 40)){
       this.diameter = diameter;
     } else {
       this.diameter = 30;  // sets the diameter to 30 if an unsuitable value is chosen
     }
   }
   
+  //Constructor method
+  public Zombie(float diameter){
+    setDiameter(diameter);
+    resetZombie();
+  }
+  
+  
   //display method
-  public void display() {
+  public void display(){
     fill(255, 20, 20);
     noStroke();
     circle(xCoord, yCoord, diameter);
   }
 
-
   //reset Zombie from the left side
-  private void resetZombieLeft() {
+  private void resetZombieLeft(){
     xCoord = 0;
     yCoord = random(height);
     x ++; //increment x each reset to alternate from even to odd
-    println("int reset = " + x % 2);
   }
   
   //reset Zombie from the right side
-  private void resetZombieRight() {
+  private void resetZombieRight(){
     xCoord = width;
     yCoord = random(height);
     x ++; //increment x each reset to alternate from even to odd
-    println("int reset = " + x % 2);
   }
   
   private void resetZombie(){
@@ -60,12 +63,6 @@ public class Zombie {
       resetZombieRight();// if 'x' is odd, reset from right
     }
   }
-
-  //Constructor method
-  public Zombie(float diameter) {
-    setDiameter(diameter);
-    resetZombie();
-  }
   
   public void hit(){  // hit() method for action when there is a collision
     background(255, 0, 0);
@@ -73,26 +70,23 @@ public class Zombie {
   }
 
   //update method
-  public void update() {
-    float distanceX = xCoord - hero.getXCoordHero();  //distanceX is distance between hero and zombie on x axis
-    float distanceY = yCoord - hero.getYCoordHero();  //distanceY is distance between hero and zombie on y axis
-    
+  public void update(){
+    float distanceX = xCoord - hero.getXCoord();  //distanceX is distance between hero and zombie on x axis
+    float distanceY = yCoord - hero.getYCoord();  //distanceY is distance between hero and zombie on y axis
+    int speed = 2; // speed of zombie  
     //update zombie coordinates   
     if (distanceX > 0){
-      xCoord -= 2;
+      xCoord -= speed;
     }
     else {
-      xCoord += 2;
+      xCoord += speed;
     }
     if (distanceY > 0){
-      yCoord -= 2;
+      yCoord -= speed;
     }
     else {
-      yCoord += 2;
+      yCoord += speed;
     }
-
-    println("DistanceX = " + distanceX);
-    println("DistanceY = " + distanceY);
   }
 }
 
